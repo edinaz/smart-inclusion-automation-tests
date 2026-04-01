@@ -1,0 +1,1 @@
+# smart-inclusion-automation-tests

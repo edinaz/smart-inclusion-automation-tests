@@ -28,10 +28,14 @@ export class OrangeHrmLoginPage {
   }
 
   /**
-   * Waits for the SPA form, then maps native controls to stable data-testid values.
+   * Waits for the SPA login form (avoid `networkidle` — demo sites often keep connections
+   * open, which causes timeouts or flaky passes).
    */
   private async attachTestIdsToLoginForm(): Promise<void> {
-    await this.page.waitForLoadState("networkidle");
+    await this.page
+      .locator('input[name="username"]')
+      .first()
+      .waitFor({ state: "visible" });
     await this.page.evaluate((ids) => {
       document
         .querySelector("input[name=\"username\"]")
